@@ -1,5 +1,6 @@
 use anyhow::Context;
 use crossterm::event::{Event, KeyCode, KeyEvent};
+use rand::prelude::*;
 use std::io::{BufRead, Write};
 use tui::{
     backend::Backend,
@@ -153,6 +154,7 @@ fn main() -> anyhow::Result<()> {
             }
         }
     }
+    all_things.shuffle(&mut rand::thread_rng());
 
     let mut round = 1;
     while all_things.len() > 1 {
@@ -177,7 +179,7 @@ fn main() -> anyhow::Result<()> {
 
     let winner = all_things.pop().unwrap();
     info(format!(
-        "The winner is {}\nIt is the the language that brings you most pain and suffering. GG",
+        "The winner is {}\n\nIt is the the language that brings most pain and suffering. GG",
         winner.name
     ))?;
 
